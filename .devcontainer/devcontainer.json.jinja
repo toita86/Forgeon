@@ -1,0 +1,14 @@
+{
+  "name": "Forgeon",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  ],
+  "remoteUser": "root"
+}
+

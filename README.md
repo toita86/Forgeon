@@ -40,10 +40,10 @@ Forgeon then generates:
 
 ## Supported Languages (so far)
 
-* [ ] Python (with `pyright`, `black`, `ruff`)
-* [ ] Node.js / TypeScript (`tsserver`, `eslint`)
-* [ ] Go (`gopls`, `goimports`)
-* [ ] Rust (`rust-analyzer`, `cargo`, `clippy`)
+* [x] Python (with `pyright`, `black`, `ruff`)
+* [x] Node.js / TypeScript (`tsserver`, `eslint`)
+* [x] Go (`gopls`, `goimports`)
+* [x] Rust (`rust-analyzer`, `cargo`, `clippy`)
 * [ ] Java (`jdtls`, `maven`)
 * [ ] C/C++ (`clangd`, `cmake`, `make`)
 * [ ] Lua (for Neovim plugin dev)
@@ -54,10 +54,37 @@ Forgeon then generates:
 
 ```
 Forgeon/
-├── build-dev-env.py       # Interactive CLI tool
-├── templates/             # Jinja2 templates for Dockerfile, configs
-├── nvim-configs/          # Optional custom or starter configs
-├── README.md
+
+copier.yml
+    └─ Copier configuration file. Defines template variables, prompts, defaults, and conditional logic.
+
+.devcontainer/
+    └─ Development container configuration (VS Code / devcontainer CLI).  
+       This can be conditionally included or excluded based on user options.
+
+docker-compose.yml.jinja
+    └─ Template for the Docker Compose file.  
+       Uses variables from copier.yml to customize services, volumes, and environment.
+
+Dockerfile.jinja
+    └─ Template for the main Dockerfile.  
+       Adjusts installed tools, languages, and config depending on user choices.
+
+.gitignore.jinja
+    └─ Template for `.gitignore`.  
+       Generates language-specific ignores depending on selected languages.
+
+LICENSE
+    └─ Project license (MIT by default, can be customized).
+
+pre-commit-config.yaml.jinja
+    └─ Jinja-templated version of the pre-commit config for customization at generation time.
+
+README.md.jinja
+    └─ README template for generated projects — can include details based on user selections.
+
+requirements.txt
+    └─ Python dependencies for the template (if any tools/scripts require them).
 ```
 
 ---
@@ -72,8 +99,8 @@ Forgeon/
 
 ## Roadmap
 
-* [ ] Template using copier
-* [ ] Devcontainer integration
+* [x] Template using copier
+* [x] Devcontainer integration
 * [ ] Podman support
 * [ ] Tmux with pre-configured session management
 

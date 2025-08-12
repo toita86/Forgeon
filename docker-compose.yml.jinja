@@ -1,0 +1,11 @@
+version: "3"
+services:
+  dev:
+    build: .
+    volumes:
+      - .:/workspace
+      {% if nvim_config_type == "Custom Local Path" and custom_nvim_path %}
+      - {{custom_nvim_path}}:/root/.config/nvim
+      {% endif %}
+    tty: true
+
