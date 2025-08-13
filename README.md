@@ -92,8 +92,8 @@ requirements.txt
 ## Requirements
 
 * Python 3.8+
-* Docker
-* `pip install -r requirements.txt` (for `copier` and `pre-commit`, if you already have no worries fo this step)
+* [`copier`](https://copier.readthedocs.io/en/stable/)
+* Docker + docker compose
 
 ---
 
@@ -101,6 +101,7 @@ requirements.txt
 
 * [x] Template using copier
 * [x] Devcontainer integration
+* [ ] Use [`pyenv`](https://github.com/pyenv/pyenv) for python installation 
 * [ ] Podman support
 * [ ] Tmux with pre-configured session management
 

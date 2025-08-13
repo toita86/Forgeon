@@ -1,8 +1,0 @@
-# Core template engine
-copier>=8.0.0
-GitPython>=3.1.43
-
-# Pre-commit hooks for formatting/linting
-pre-commit>=3.7.1
-black>=24.4.2
-yamllint>=1.35.1
