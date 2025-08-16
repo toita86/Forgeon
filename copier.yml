@@ -1,10 +1,10 @@
-_min_copier_version: "8.0.0"
+_min_copier_version: "9.0.0"
 _templates_suffix: .jinja
 
 languages:
-  type: str
-  help: "Comma-separated list of languages (e.g., python, go, rust)"
-  default: "python"
+  type: yaml
+  help: "Comma-separated list of languages (e.g. [python, go, rust])"
+  default: ["python"]
 
 nvim_config_type:
   type: str
@@ -20,7 +20,8 @@ nvim_config_type:
   default: NvChad
 
 _exclude:
-  - "{% if nvim_config_type == 'I will use VS code' %}.devcontainer{% endif %}"
+  - .git
+  - "{% if nvim_config_type != 'I will use VS code' %}.devcontainer{% endif %}"
 
 custom_nvim_repo:
   type: str
