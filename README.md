@@ -36,6 +36,16 @@ Forgeon then generates:
 * Custom Neovim configuration (if needed)
 * Shell scripts or volume mappings for easy startup
 
+Once everything is generated, if you user has ID 1000 you are all set.
+Otherwise you need to configure in the `.env` file by doing
+```bash
+echo "UID=$(id -u)" > .env
+echo "GID=$(id -g)" >> .env
+```
+This will avoid any docker container ownership permissions error.
+
+After this just build with `docker compose build`, run with `docker compose up -d` and access the ubuntu shell by doing `docker exec -it <contaniner-name> bash`  
+
 ---
 
 ## Supported Languages (so far)

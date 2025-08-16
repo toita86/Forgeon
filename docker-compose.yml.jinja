@@ -1,11 +1,15 @@
-version: "3"
 services:
   dev:
-    build: .
+    build:
+      context: .
+      args:
+        USERNAME: ${UNAME}
+        USER_UID: ${UID}
+        USER_GID: ${GID}
     volumes:
       - .:/workspace
       {%- if nvim_config_type == "Custom Local Path" and custom_nvim_path %}
-      - {{custom_nvim_path}}:/root/.config/nvim
+      - {{custom_nvim_path}}:/home/${UNAME}/.config/nvim
       {%- endif %}
     tty: true
-
+    stdin_open: true
