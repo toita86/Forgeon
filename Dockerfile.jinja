@@ -1,9 +1,9 @@
-FROM ubuntu:22.04
+FROM debian:bookworm-slim
 
 # Create a non-root user (same UID/GID as host user)
 ARG USERNAME=$USERNAME
 ARG USER_UID=$USER_UID
-ARG USER_GID=$USER_UID
+ARG USER_GID=$USER_GID
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y \
     {%- if "python" in languages %} python3 python3-pip \{%- endif %}
     {%- if "go" in languages %} golang \{%- endif %}
     {%- if "rust" in languages %} curl && curl https://sh.rustup.rs -sSf | sh -s -- -y \{%- endif %}
-    {%- if "node" in languages %} nodejs npm \{%- endif %}
-    && rm -rf /var/lib/apt/lists/*
+    {%- if "node" in languages %} nodejs npm {%- endif %}
 
 {%- if nvim_config_type != "I will use VS code" %}
 
@@ -28,6 +27,7 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
     && rm nvim-linux-x86_64.appimage
 
 USER $USERNAME
+
 {%- if nvim_config_type != "Custom Local Path" %}
 # Install Neovim config
 {%-endif%}
@@ -44,7 +44,14 @@ RUN git clone https://github.com/nvim-lua/kickstart.nvim home/$USERNAME/.config/
 RUN git clone {{ custom_nvim_repo }} home/$USERNAME/.config/nvim
 {%- endif %}
 
+RUN mkdir -p /home/$USERNAME/.local/share/ \
+    && chown -R $USER_UID:$USER_GID /home/$USERNAME/.local
 {%-endif%}
+
+{%- if "haskell" in languages %}
+RUN curl https://get-ghcup.haskell.org -sSf | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 sh
+RUN echo 'source /home/$USERNAME/.ghcup/env' >> 
+{%- endif %}
 
 WORKDIR /workspace
 

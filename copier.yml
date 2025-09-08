@@ -21,6 +21,7 @@ nvim_config_type:
 
 _exclude:
   - .git
+  - copier.yml
   - "{% if nvim_config_type != 'I will use VS code' %}.devcontainer{% endif %}"
 
 custom_nvim_repo:

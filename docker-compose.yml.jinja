@@ -11,5 +11,21 @@ services:
       {%- if nvim_config_type == "Custom Local Path" and custom_nvim_path %}
       - {{custom_nvim_path}}:/home/${UNAME}/.config/nvim
       {%- endif %}
+      {%- if nvim_config_type != "I will use VS code" %}
+      - nvim_data:/home/${UNAME}/.local/share/nvim
+      {%- endif %}
+      {%- if "haskell" in languages %}
+      - ghcup_data:/home/${UNAME}/.ghcup
+      - cabal_data:/home/${UNAME}/.cabal
+      {%- endif %}
     tty: true
     stdin_open: true
+
+volumes:
+  {%- if nvim_config_type != "I will use VS code" %}
+  nvim_data:
+  {%- endif %}
+  {%- if "haskell" in languages %}
+  ghcup_data:
+  cabal_data:
+  {%- endif %}
